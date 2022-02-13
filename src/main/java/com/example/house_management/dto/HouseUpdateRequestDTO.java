@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class HouseUpdateRequestDTO {
 	
-	@Min(value = 0, message = "Number of balconies cannot be negative") 
+	@Min(value = 0, message = "Number of balconies cannot be negative")
 	@JsonProperty("numberOfBalconies")
 	private Integer numberOfBalconies;
 	
