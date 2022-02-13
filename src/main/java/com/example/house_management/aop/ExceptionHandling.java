@@ -4,9 +4,11 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.example.house_management.exceptions.CustomEntityNotFoundException;
 import com.example.house_management.exceptions.ErrorResponse;
@@ -58,6 +60,22 @@ public class ExceptionHandling {
 		
 		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), 
 				"There was a problem with the integrity of data while being saved in database. Please check that the fields have correct values");
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+		log.error("There was an integrity problem while data is being saved in database", ex);
+		
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
+	}
+	
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+		log.error("There was an integrity problem while data is being saved in database", ex);
+		
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getName() + " should be of type " + ex.getRequiredType().getName());
 	}
 
 }
