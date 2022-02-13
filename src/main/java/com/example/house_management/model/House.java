@@ -32,7 +32,7 @@ public class House {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message = "'address' field of House cannot be null") 
+	@NotNull(message = "'address' field of House cannot be null")
 	@Column(name = "address", nullable = false)
 	private String address;
 	
