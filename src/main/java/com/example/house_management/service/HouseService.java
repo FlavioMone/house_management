@@ -14,7 +14,6 @@ public interface HouseService {
 	HouseResponseDTO createHouse(HouseCreateRequestDTO houseCreateRequestDTO);
 	HouseResponseDTO updateHouse(Long id, HouseUpdateRequestDTO houseUpdateRequestDTO);
 	void deleteHouse(Long id);
-	
 	public List<HouseResponseDTO> getAllHousesContainingCountry(String country);
 
 }

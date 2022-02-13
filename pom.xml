@@ -114,7 +114,6 @@
 								<exclude>com/example/house_management/HouseManagementApplication.class</exclude>
 								<exclude>com/example/house_management/aop/*</exclude>
 								<exclude>com/example/house_management/config/*</exclude>
-								<!-- <exclude>com/example/house_management/dto/*</exclude> -->
 								<exclude>com/example/house_management/util/*</exclude>
 							</excludes>
 							<outputDirectory>target/jacoco_report</outputDirectory>

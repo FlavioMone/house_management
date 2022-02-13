@@ -5,9 +5,9 @@ spring:
  application:
   name: HOUSE MANAGEMENT
  datasource:
-  password: Skgfdut5
-  url: jdbc:postgresql://localhost:5432/housemgmt
-  username: postgres
+  password: DB_PASSWORD
+  url: DB_URL
+  username: DB_USERNAME
  jpa:
   hibernate:
    ddl-auto: none
