@@ -86,6 +86,7 @@ public class HouseServiceImpl implements HouseService {
 				.ifPresent(entity::setNumberOfBathrooms);
 		Optional.ofNullable(houseUpdateRequestDTO.getNumberOfBedrooms())
 				.ifPresent(entity::setNumberOfBedrooms);
+		entity.setModifiedAt(LocalDateTime.now());
 		entity = houseRepository.save(entity);
 		return modelMapper.map(entity, HouseResponseDTO.class);
 	}
