@@ -65,19 +65,6 @@ public class HouseControllerTest {
 		Mockito.verify(houseService, Mockito.times(1)).createHouse(Mockito.any(HouseCreateRequestDTO.class));
 	}
 	
-//	@Test
-//	void givenNonExistingHouse_whenDeleted_thenThrowException() throws Exception {
-//		
-//		Mockito.doThrow(CustomEntityNotFoundException.class).when(houseService).deleteHouse(Mockito.anyLong());
-//		
-//		mockMvc.perform(MockMvcRequestBuilders
-//				.delete(BASE_URI + "/houses/" + 1))
-//				.andExpect(MockMvcResultMatchers.status().isInternalServerError())
-//				.andExpect(result -> assertTrue(result.getResolvedException() instanceof CustomEntityNotFoundException));
-//		
-//		Mockito.verify(houseService, Mockito.times(1)).deleteHouse(Mockito.anyLong());
-//	}
-	
 	@Test
 	void givenExistingHouse_whenDeleted_thenOk() throws Exception {
 		
