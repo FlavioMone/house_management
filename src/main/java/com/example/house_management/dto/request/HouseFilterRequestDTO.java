@@ -1,4 +1,4 @@
-package com.example.house_management.dto;
+package com.example.house_management.dto.request;
 
 import java.util.List;
 

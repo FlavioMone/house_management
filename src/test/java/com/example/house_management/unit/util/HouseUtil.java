@@ -11,11 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import com.example.house_management.dto.HouseCreateRequestDTO;
-import com.example.house_management.dto.HouseFilterRequestDTO;
-import com.example.house_management.dto.HouseResponseDTO;
-import com.example.house_management.dto.HouseUpdateRequestDTO;
-import com.example.house_management.dto.PageDTO;
+import com.example.house_management.dto.request.HouseCreateRequestDTO;
+import com.example.house_management.dto.request.HouseFilterRequestDTO;
+import com.example.house_management.dto.request.HouseUpdateRequestDTO;
+import com.example.house_management.dto.request.PageDTO;
+import com.example.house_management.dto.response.HouseResponseDTO;
 import com.example.house_management.model.House;
 
 public class HouseUtil {

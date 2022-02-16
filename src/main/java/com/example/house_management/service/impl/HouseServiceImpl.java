@@ -16,10 +16,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.house_management.dto.HouseCreateRequestDTO;
-import com.example.house_management.dto.HouseFilterRequestDTO;
-import com.example.house_management.dto.HouseResponseDTO;
-import com.example.house_management.dto.HouseUpdateRequestDTO;
+import com.example.house_management.dto.request.HouseCreateRequestDTO;
+import com.example.house_management.dto.request.HouseFilterRequestDTO;
+import com.example.house_management.dto.request.HouseUpdateRequestDTO;
+import com.example.house_management.dto.response.HouseResponseDTO;
 import com.example.house_management.exceptions.CustomEntityNotFoundException;
 import com.example.house_management.model.House;
 import com.example.house_management.repository.HouseRepository;

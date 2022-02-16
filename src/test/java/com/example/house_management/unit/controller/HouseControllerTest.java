@@ -19,10 +19,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.house_management.controller.HouseController;
-import com.example.house_management.dto.HouseCreateRequestDTO;
-import com.example.house_management.dto.HouseFilterRequestDTO;
-import com.example.house_management.dto.HouseResponseDTO;
-import com.example.house_management.dto.HouseUpdateRequestDTO;
+import com.example.house_management.dto.request.HouseCreateRequestDTO;
+import com.example.house_management.dto.request.HouseFilterRequestDTO;
+import com.example.house_management.dto.request.HouseUpdateRequestDTO;
+import com.example.house_management.dto.response.HouseResponseDTO;
 import com.example.house_management.service.HouseService;
 import com.example.house_management.unit.util.HouseUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;

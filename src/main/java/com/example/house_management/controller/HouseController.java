@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.house_management.dto.HouseCreateRequestDTO;
-import com.example.house_management.dto.HouseFilterRequestDTO;
-import com.example.house_management.dto.HouseResponseDTO;
-import com.example.house_management.dto.HouseUpdateRequestDTO;
+import com.example.house_management.dto.request.HouseCreateRequestDTO;
+import com.example.house_management.dto.request.HouseFilterRequestDTO;
+import com.example.house_management.dto.request.HouseUpdateRequestDTO;
+import com.example.house_management.dto.response.HouseResponseDTO;
 import com.example.house_management.service.HouseService;
 
 @RestController
