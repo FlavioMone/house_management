@@ -5,6 +5,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -85,6 +86,14 @@ public class ExceptionHandling {
 		log.error("Property not found", ex);
 		
 		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+	}
+	
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+		log.error("JSON not in proper format", ex);
+		
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "There is a problem while trying to read the JSON object. It is not in the proper format");
 	}
 
 }

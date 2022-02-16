@@ -54,6 +54,9 @@ public class HouseServiceImpl implements HouseService {
 //			throw new CustomEntityNotFoundException(House.class, id);
 //		}
 //		houseRepository.deleteById(id);
+		
+		// Way 3
+		// Create delete method in repository and call it directly from here
 	}
 
 	@Override
@@ -116,8 +119,12 @@ public class HouseServiceImpl implements HouseService {
 			houseSpecification = houseSpecification.and(getCitySpecificationOfHouse(houseFilterRequestDTO.getCities()));
 		}
 		
-		if(houseFilterRequestDTO.getCountry()!=null) {
+		if(houseFilterRequestDTO.getCountry() != null) {
 			houseSpecification = houseSpecification.and(getCountrySpecificationOfHouse(houseFilterRequestDTO.getCountry()));
+		}
+		
+		if(houseFilterRequestDTO.getMinNumberOfBedrooms() != null) {
+			houseSpecification = houseSpecification.and(getMinNumberOfBedroomsSpecificationOfHouse(houseFilterRequestDTO.getMinNumberOfBedrooms()));
 		}
 		
 		LocalDateTime filterDate = DateInterval.getFilterDateFromValue(houseFilterRequestDTO.getCreationDateInterval());
@@ -134,6 +141,10 @@ public class HouseServiceImpl implements HouseService {
 	
 	private Specification<House> getCountrySpecificationOfHouse(String country) {
 		return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("country"), country);
+	}
+	
+	private Specification<House> getMinNumberOfBedroomsSpecificationOfHouse(Integer minNumberOfBedrooms) {
+		return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("numberOfBedrooms"), minNumberOfBedrooms);
 	}
 	
 	private Specification<House> getCreationDateIntervalSpecificationOfHouse(LocalDateTime filterDate) {

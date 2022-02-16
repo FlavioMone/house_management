@@ -63,6 +63,7 @@ public class HouseUtil {
 		HouseFilterRequestDTO filterDTO = new HouseFilterRequestDTO();
 		filterDTO.setCities(Arrays.asList("test", "test2"));
 		filterDTO.setCountry("test");
+		filterDTO.setMinNumberOfBedrooms(1);
 		filterDTO.setCreationDateInterval(0);
 		
 		filterDTO.setPageDTO(getPageDTO());
