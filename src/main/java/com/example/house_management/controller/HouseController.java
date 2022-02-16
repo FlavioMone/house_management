@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.house_management.dto.HouseCreateRequestDTO;
+import com.example.house_management.dto.HouseFilterRequestDTO;
 import com.example.house_management.dto.HouseResponseDTO;
 import com.example.house_management.dto.HouseUpdateRequestDTO;
 import com.example.house_management.service.HouseService;
@@ -69,6 +71,12 @@ public class HouseController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<HouseResponseDTO> getAllHousesContainingCountry(@RequestParam(required = true) String country){
 		return houseService.getAllHousesContainingCountry(country);
+	}
+	
+	@PostMapping("/houses/filter")
+	@ResponseStatus(value = HttpStatus.OK)
+	public Page<HouseResponseDTO> getAllHouses(@Valid @RequestBody HouseFilterRequestDTO houseFilterRequestDTO) {
+		return houseService.getAllHouses(houseFilterRequestDTO);
 	}
 	
 }

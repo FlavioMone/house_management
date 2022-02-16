@@ -1,12 +1,12 @@
 package com.example.house_management.unit.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +14,13 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.house_management.dto.HouseCreateRequestDTO;
+import com.example.house_management.dto.HouseFilterRequestDTO;
 import com.example.house_management.dto.HouseResponseDTO;
 import com.example.house_management.exceptions.CustomEntityNotFoundException;
 import com.example.house_management.model.House;
@@ -135,6 +139,38 @@ public class HouseServiceTest {
 		Mockito.when(houseRepository.getAllHousesContainingCountry(Mockito.anyString())).thenReturn(houses);
 		
 		assertEquals(3, houseService.getAllHousesContainingCountry("test").size());
+	}
+	
+	@Test
+	void givenFilter_whenRetrieved_getAllHouses() {
+		Page<House> houses = HouseUtil.getPagesOfHouse(10, 1, 3, "ASC", "id");
+		
+		Mockito.when(houseRepository.findAll(Mockito.any(Specification.class), Mockito.any(Pageable.class))).thenReturn(houses);
+		
+		assertEquals(3, houseService.getAllHouses(HouseUtil.getHouseFilterRequestDTO()).getNumberOfElements());
+	}
+	
+	@Test
+	void givenNullFilter_whenRetrieved_getAllHouses() {
+		HouseFilterRequestDTO request = new HouseFilterRequestDTO();
+		request.setPageDTO(HouseUtil.getPageDTO());
+		Page<House> houses = HouseUtil.getPagesOfHouse(10, 1, 3, "ASC", "id");
+		
+		Mockito.when(houseRepository.findAll(Mockito.any(Specification.class), Mockito.any(Pageable.class))).thenReturn(houses);
+		
+		assertEquals(3, houseService.getAllHouses(request).getNumberOfElements());
+	}
+	
+	@Test
+	void givenEmptyFilter_whenRetrieved_getAllHouses() {
+		HouseFilterRequestDTO request = new HouseFilterRequestDTO();
+		request.setCities(Arrays.asList());
+		request.setPageDTO(HouseUtil.getPageDTO());
+		Page<House> houses = HouseUtil.getPagesOfHouse(10, 1, 3, "ASC", "id");
+		
+		Mockito.when(houseRepository.findAll(Mockito.any(Specification.class), Mockito.any(Pageable.class))).thenReturn(houses);
+		
+		assertEquals(3, houseService.getAllHouses(request).getNumberOfElements());
 	}
 
 }

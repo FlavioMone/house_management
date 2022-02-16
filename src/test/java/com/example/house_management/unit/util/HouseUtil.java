@@ -2,11 +2,20 @@ package com.example.house_management.unit.util;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import com.example.house_management.dto.HouseCreateRequestDTO;
+import com.example.house_management.dto.HouseFilterRequestDTO;
 import com.example.house_management.dto.HouseResponseDTO;
 import com.example.house_management.dto.HouseUpdateRequestDTO;
+import com.example.house_management.dto.PageDTO;
 import com.example.house_management.model.House;
 
 public class HouseUtil {
@@ -50,6 +59,26 @@ public class HouseUtil {
 		return dto;
 	}
 	
+	public static HouseFilterRequestDTO getHouseFilterRequestDTO() {
+		HouseFilterRequestDTO filterDTO = new HouseFilterRequestDTO();
+		filterDTO.setCities(Arrays.asList("test", "test2"));
+		filterDTO.setCountry("test");
+		filterDTO.setCreationDateInterval(0);
+		
+		filterDTO.setPageDTO(getPageDTO());
+		
+		return filterDTO;
+	}
+	
+	public static PageDTO getPageDTO() {
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setPageNumber(1);
+		pageDTO.setPageSize(1);
+		pageDTO.setSortingDirection("ASC");
+		pageDTO.setSortingField("id");
+		return pageDTO;
+	}
+	
 	public static HouseResponseDTO getHouseResponseDTO() {
 		HouseResponseDTO dto = new HouseResponseDTO();
 		dto.setId(1L);
@@ -79,6 +108,20 @@ public class HouseUtil {
 			houseResponseDTOs.add(getHouseResponseDTO());
 		}
 		return houseResponseDTOs;
+	}
+	
+	public static Page<House> getPagesOfHouse(int size, int page, int pageSize, String sortingDirection, String sortingField){
+	    Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Direction.fromString(sortingDirection) , sortingField));
+	    int start = (int) Math.min(pageable.getOffset(), size);
+	    int end = Math.min((start + pageable.getPageSize()), size);
+	    return new PageImpl<>(getHouses(size).subList(start, end), pageable, size);
+	}
+	
+	public static Page<HouseResponseDTO> getPagesOfHouseResponseDTO(int size, int page, int pageSize, String sortingDirection, String sortingField){
+	    Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Direction.fromString(sortingDirection) , sortingField));
+	    int start = (int) Math.min(pageable.getOffset(), size);
+	    int end = Math.min((start + pageable.getPageSize()), size);
+	    return new PageImpl<>(getHouseResponseDTOs(size).subList(start, end), pageable, size);
 	}
 
 }

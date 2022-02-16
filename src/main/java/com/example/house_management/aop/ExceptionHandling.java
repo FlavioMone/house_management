@@ -3,6 +3,7 @@ package com.example.house_management.aop;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -76,6 +77,14 @@ public class ExceptionHandling {
 		log.error("There was an integrity problem while data is being saved in database", ex);
 		
 		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getName() + " should be of type " + ex.getRequiredType().getName());
+	}
+	
+	@ExceptionHandler(PropertyReferenceException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ErrorResponse handlePropertyReferenceException(PropertyReferenceException ex) {
+		log.error("Property not found", ex);
+		
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
 	}
 
 }
