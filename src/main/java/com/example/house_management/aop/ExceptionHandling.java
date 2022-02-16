@@ -66,7 +66,7 @@ public class ExceptionHandling {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-		log.error("There was an integrity problem while data is being saved in database", ex);
+		log.error("There was an integrity problem while validating arguments", ex);
 		
 		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
 	}
@@ -74,7 +74,7 @@ public class ExceptionHandling {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-		log.error("There was an integrity problem while data is being saved in database", ex);
+		log.error("There was an integrity problem with argument type", ex);
 		
 		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getName() + " should be of type " + ex.getRequiredType().getName());
 	}
