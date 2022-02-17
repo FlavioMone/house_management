@@ -17,11 +17,11 @@ public class ErrorResponse implements Serializable {
 	private int status;
 	private String message;
 	private boolean internal;
-	
-	public ErrorResponse(int status, String message) {
-		this.status = status;
-		this.message = message;
-		this.internal = true;
-	}
+//	
+//	public ErrorResponse(int status, String message) {
+//		this.status = status;
+//		this.message = message;
+//		this.internal = true;
+//	}
 
 }

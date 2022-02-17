@@ -27,23 +27,23 @@ public class ExceptionHandling {
 		log.error("Unhandled NullPointerException", ex);
 		
 		return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), 
-				"There was an unexpected null value.");
+				"There was an unexpected null value.", true);
 	}
 	
 	@ExceptionHandler(CustomEntityNotFoundException.class)
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorResponse handleCustomEntityNotFoundException(CustomEntityNotFoundException ex) {
 		log.error("Custom entity not found exception", ex);
 		
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+		return new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), false);
 	}
 	
 	@ExceptionHandler(EntityNotFoundException.class)
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorResponse handleEntityNotFoundException(EntityNotFoundException ex) {
 		log.error("Entity not found exception", ex);
 		
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+		return new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), true);
 	}
 	
 	@ExceptionHandler(Exception.class)
@@ -52,7 +52,7 @@ public class ExceptionHandling {
 		log.error("Unhandled generic exception", ex);
 		
 		return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), 
-				"There was an unexpected situation. Please contact the page administrator.");
+				"There was an unexpected situation. Please contact the page administrator.", true);
 	}
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
@@ -61,7 +61,7 @@ public class ExceptionHandling {
 		log.error("There was an integrity problem while data is being saved in database", ex);
 		
 		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), 
-				"There was a problem with the integrity of data while being saved in database. Please check that the fields have correct values");
+				"There was a problem with the integrity of data while being saved in database. Please check that the fields have correct values", false);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -69,7 +69,7 @@ public class ExceptionHandling {
 	public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
 		log.error("There was an integrity problem while validating arguments", ex);
 		
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage(), false);
 	}
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -77,7 +77,7 @@ public class ExceptionHandling {
 	public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
 		log.error("There was an integrity problem with argument type", ex);
 		
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getName() + " should be of type " + ex.getRequiredType().getName());
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getName() + " should be of type " + ex.getRequiredType().getName(), false);
 	}
 	
 	@ExceptionHandler(PropertyReferenceException.class)
@@ -85,7 +85,7 @@ public class ExceptionHandling {
 	public ErrorResponse handlePropertyReferenceException(PropertyReferenceException ex) {
 		log.error("Property not found", ex);
 		
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), false);
 	}
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
@@ -93,7 +93,7 @@ public class ExceptionHandling {
 	public ErrorResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
 		log.error("JSON not in proper format", ex);
 		
-		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "There is a problem while trying to read the JSON object. It is not in the proper format");
+		return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "There is a problem while trying to read the JSON object. It is not in the proper format", false);
 	}
 
 }
